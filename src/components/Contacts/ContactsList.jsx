@@ -1,19 +1,23 @@
 import React from "react";
-// import styled from 'styled-components';
 import PropTypes from "prop-types";
 
-function ContactsList({ contacts }) {
+function ContactsList({ contacts, onRemove }) {
   return (
     <div>
-      <ul>
-        {contacts.map((contact) => {
-          return (
-            <li key={contact.id}>
-              {contact.name}: {contact.number}
-            </li>
-          );
-        })}
-      </ul>
+      {contacts.length !== 0 ? (
+        <ul>
+          {contacts.map((contact) => {
+            return (
+              <li key={contact.id}>
+                {contact.name}: {contact.number}
+                <button onClick={() => onRemove(contact.id)}>delete</button>
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        "Your contact list is empty"
+      )}
     </div>
   );
 }
@@ -25,7 +29,7 @@ ContactsList.propTypes = {
     PropTypes.exact({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      number: PropTypes.number.isRequired,
+      number: PropTypes.string.isRequired,
     })
   ),
   contact: PropTypes.string,

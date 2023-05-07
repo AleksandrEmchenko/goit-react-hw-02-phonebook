@@ -23,13 +23,15 @@ class ContactForm extends React.Component {
       name: this.state.name,
       number: this.state.number,
     };
-    
+
     this.setState({
       name: "",
       number: "",
     });
-
+    
+    // this.props.handelCheckUniqContact(this.state.name)
     this.props.onAddContact(contact);
+    
   };
 
   render() {
@@ -41,6 +43,7 @@ class ContactForm extends React.Component {
             <input
               type="text"
               name="name"
+              placeholder="Enter name"
               value={this.state.name}
               onChange={this.handleChange}
               pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -54,6 +57,7 @@ class ContactForm extends React.Component {
             <input
               type="tel"
               name="number"
+              placeholder="Enter number"
               value={this.state.number}
               onChange={this.handleChange}
               pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -74,4 +78,5 @@ export default ContactForm;
 
 ContactForm.propTypes = {
   onAddContact: PropTypes.func.isRequired,
+  onCheckUniq: PropTypes.func.isRequired,
 };
