@@ -1,6 +1,6 @@
 import React from "react";
 // import styled from 'styled-components';
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
 function ContactsList({ contacts }) {
   return (
@@ -10,7 +10,6 @@ function ContactsList({ contacts }) {
           return (
             <li key={contact.id}>
               {contact.name}: {contact.number}
-              
             </li>
           );
         })}
@@ -19,13 +18,15 @@ function ContactsList({ contacts }) {
   );
 }
 
-// Contacts.propTypes = propTypes;
-// Contacts.defaultProps = defaultProps;
-// #endregion
-
 export default ContactsList;
 
-// Contacts.propTypes = {
-//     options: PropTypes.arrayOf(PropTypes.string),
-//     contact: PropTypes.string
-// };
+ContactsList.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.exact({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.number.isRequired,
+    })
+  ),
+  contact: PropTypes.string,
+};
