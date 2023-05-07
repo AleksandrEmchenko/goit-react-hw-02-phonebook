@@ -1,77 +1,53 @@
 import React from "react";
-import { nanoid } from "nanoid";
-import Contacts from "./Contacts";
+// import { nanoid } from "nanoid";
+import ContactForm from "./ContactForm";
+import ContactsList from "./Contacts";
+// import Filter from "./Filter";
 
 class App extends React.Component {
   state = {
-    contacts: [],
-    name: "",
-    number: '',
-  };
-  handleChange = (event) => {
-    this.setState({
-      [event.currentTarget.name]: event.currentTarget.value,
-    });
+    contacts: [
+      { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
+      { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
+      { id: "id-3", name: "Eden Clements", number: "645-17-79" },
+      { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
+    ],
+    filter: "",
   };
 
-  handleSubmitForm = (event) => {
-    event.preventDefault();
-    const contact = {
-      id: nanoid(),
-      name: this.state.name,
-      number: this.state.number,
-    };
-    this.setState({
-      name: "",
-      number: "",
-    });
-    console.log(contact);
-    console.log(this.state.contacts);
+  handleFilter = (event) => {
+    this.handleChange(event);
+    console.log(event.currentTarget.value);
+  };
+
+
+  addContact = contact => {
+    // const contact = {
+    //   id: nanoid(),
+    //   name: this.state.name,
+    //   number: this.state.number,
+    // };
 
     this.setState((prevState) => {
-      return { contacts: [...this.state.contacts, contact] };
+      return { contacts: [...prevState.contacts, contact]
+      }
     });
+
+
+
   };
 
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmitForm}>
-          <h2>Phonebook</h2>
-          <label>
-            
-            Name
-            <input
-              type="text"
-              name="name"
-              value={this.state.name}
-              onChange={this.handleChange}
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-              required
-            />
-          </label>
-<label> Number
-<input
-  type="tel"
-  name="number"
-  value={this.state.number}
-  onChange={this.handleChange}
-  pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-  title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-  required
-/>
-</label>
+        <h1>Phonebook</h1>
 
+        <ContactForm onAddContact={this.addContact}/>
 
+        <h2>Contacts</h2>
 
-          <br />
-          <button type="submit">Add contact</button>
-        </form>
-
-        <Contacts title ={"Contacts"} contacts={this.state.contacts} />
-          
-        
+        {/* <Filter value={this.state.filter} onChange={this.handleChange} /> */}
+        <ContactsList contacts={this.state.contacts} />
       </div>
     );
   }
