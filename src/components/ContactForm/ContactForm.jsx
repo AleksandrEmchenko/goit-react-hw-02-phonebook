@@ -24,13 +24,16 @@ class ContactForm extends React.Component {
       number: this.state.number,
     };
 
+    this.props.onAddContact(contact);
+    this.props.onCheckUniq(this.state.name);
+
     this.setState({
       name: "",
       number: "",
     });
+        
+ 
     
-    // this.props.handelCheckUniqContact(this.state.name)
-    this.props.onAddContact(contact);
     
   };
 

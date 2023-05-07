@@ -29,12 +29,13 @@ class App extends React.Component {
     this.setState((prevState) => {
       return { contacts: [...prevState.contacts, contact] };
     });
+    
   };
 
   handelCheckUniqContact = (name) => {
     const { contacts } = this.state;
     const isContact = contacts.find((contact) => contact.name === name);
-    return isContact && alert(`${name} is already in contact`);
+    return (isContact && alert(`${name} is already in contact`));
   };
 
   handleRemove = (id) => {
